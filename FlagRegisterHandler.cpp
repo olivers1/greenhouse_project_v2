@@ -1,9 +1,9 @@
 #include "FlagRegisterHandler.h"
 
-FlagRegisterHandler::FlagRegisterHandler() :
-	m_flagRegister((byte)States::RESET)
+FlagRegisterHandler::FlagRegisterHandler()
+	: m_flagRegister((byte)States::RESET)
 {
-	
+	Serial.println("flagRegister is cleared");
 }
 
 void FlagRegisterHandler::SetFlag(States flag)

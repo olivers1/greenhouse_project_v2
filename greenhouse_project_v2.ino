@@ -12,6 +12,7 @@
 #include "arduino_secrets.h"
 #include "FlagRegisterHandler.h"
 
+
 int status = WL_IDLE_STATUS;
 char ssid[] = SECRET_SSID;      // your network SSID (name)
 char pass[] = SECRET_PASS;      // your network password
@@ -26,6 +27,7 @@ WiFiUDP Udp;
 
 // instatiate objects
 InternalClock internalClock(InternalClock::Weekday::Saturday, 15, 20, 50);
+FlagRegisterHandler flagRegister();
 
 const unsigned int TIME_SYNC_PERIOD = 10000;   // interval (milliseconds) for time sync with NTP server
 unsigned long previousMillis = 0;

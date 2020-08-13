@@ -24,4 +24,3 @@ public:
 	void SetFlag(States);
 	void ClearFlag(States);
 };
-

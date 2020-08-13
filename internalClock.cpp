@@ -5,7 +5,6 @@ InternalClock::InternalClock() { }	// empty constructor
 InternalClock::InternalClock(Weekday weekday, byte hour, byte minute, byte second)	// constructor taking parameters
 	: m_weekday(weekday), m_hour(hour), m_minute(minute), m_second(second)
 {
-
 	if ((weekday < Weekday::Monday && weekday > Weekday::Sunday) || (hour < 0 || hour > 23) || (minute < 0 || minute > 59) || (second < 0 && second > 59))
 	{
 		Serial.println("Time object initialization failed due to invalid input");

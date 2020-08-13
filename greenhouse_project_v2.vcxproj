@@ -77,10 +77,10 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(ProjectDir)..\greenhouse_project_v2;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.5\cores\arduino;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.5\cores\arduino\api;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.5\variants\uno2018;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.5\cores\arduino\api\deprecated;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\arduino\hardware\megaavr;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\greenhouse_project_v2;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.5\libraries\SPI\src;$(ProjectDir)..\..\..\Documents\Arduino\libraries\WiFiNINA-1.6.0\src;$(ProjectDir)..\..\..\Documents\Arduino\libraries\WiFiNINA-1.6.0\src\utility;$(ProjectDir)..\..\..\Documents\Arduino\libraries\Time-master;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.5\cores\arduino;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.5\cores\arduino\api;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.5\variants\uno2018;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.5\cores\arduino\api\deprecated;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\arduino\hardware\megaavr;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ProjectDir)__vm\.greenhouse_project_v2.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
-      <PreprocessorDefinitions>__MEGAAVR_atmega4809__;__MEGAAVR_ATmega4809__;F_CPU=16000000L;ARDUINO=108013;ARDUINO_AVR_UNO_WIFI_REV2;ARDUINO_ARCH_MEGAAVR;UNO_WIFI_REV2_328MODE;MILLIS_USE_TIMERB3;__cplusplus=201103L;_VMICRO_INTELLISENSE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__MEGAAVR_atmega4809__;__MEGAAVR_ATmega4809__;_VMDEBUG=1;F_CPU=16000000L;ARDUINO=108013;ARDUINO_AVR_UNO_WIFI_REV2;ARDUINO_ARCH_MEGAAVR;UNO_WIFI_REV2_328MODE;MILLIS_USE_TIMERB3;__cplusplus=201103L;_VMICRO_INTELLISENSE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -93,6 +93,9 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\greenhouse_project_v2;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.5\libraries\SPI\src;$(ProjectDir)..\..\..\Documents\Arduino\libraries\WiFiNINA-1.6.0\src;$(ProjectDir)..\..\..\Documents\Arduino\libraries\WiFiNINA-1.6.0\src\utility;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.5\cores\arduino;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.5\cores\arduino\api;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.5\variants\uno2018;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\arduino\hardware\megaavr\1.8.5\cores\arduino\api\deprecated;$(ProjectDir)..\..\..\AppData\Local\arduino15\packages\arduino\hardware\megaavr;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ProjectDir)__vm\.greenhouse_project_v2.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <PreprocessorDefinitions>__MEGAAVR_atmega4809__;__MEGAAVR_ATmega4809__;F_CPU=16000000L;ARDUINO=108013;ARDUINO_AVR_UNO_WIFI_REV2;ARDUINO_ARCH_MEGAAVR;UNO_WIFI_REV2_328MODE;MILLIS_USE_TIMERB3;__cplusplus=201103L;_VMICRO_INTELLISENSE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -113,10 +116,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="arduino_secrets.h" />
+    <ClInclude Include="FlagRegisterHandler.h" />
     <ClInclude Include="internalClock.h" />
     <ClInclude Include="__vm\.greenhouse_project_v2.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="FlagRegisterHandler.cpp" />
     <ClCompile Include="internalClock.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
@@ -124,7 +129,7 @@
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties config.Debug.customdebug_uno2018_debugger_type="universal" />
+      <UserProperties config.Debug.customdebug_uno2018_debugger_type="universal" arduino.upload.port="COM3" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
