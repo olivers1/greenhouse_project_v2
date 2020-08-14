@@ -27,7 +27,7 @@ WiFiUDP Udp;
 
 // instatiate objects
 InternalClock internalClock(InternalClock::Weekday::Saturday, 15, 20, 50);
-FlagRegisterHandler flagRegister();
+//FlagRegisterHandler flagRegister;
 
 const unsigned int TIME_SYNC_PERIOD = 10000;   // interval (milliseconds) for time sync with NTP server
 unsigned long previousMillis = 0;
@@ -40,6 +40,8 @@ void setup()
 
 void loop()
 {
+    static FlagRegisterHandler flagRegister;   
+    
     // sync internal clock with NTP server according to a preset time interval set by 'time sync period'
     unsigned long currentMillis = millis();
     if (currentMillis - previousMillis >= TIME_SYNC_PERIOD)
