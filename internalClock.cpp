@@ -90,6 +90,5 @@ unsigned long InternalClock::GetTimeInt()
 	{
 		currentTime += 2400000;
 	}
-
 	return currentTime;
 }

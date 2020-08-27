@@ -11,6 +11,7 @@
 #include "InternalClock.h"
 #include "arduino_secrets.h"
 #include "FlagRegisterHandler.h"
+#include "Actuator.h"
 
 
 int status = WL_IDLE_STATUS;
@@ -27,7 +28,6 @@ WiFiUDP Udp;
 
 // instatiate objects
 InternalClock internalClock(InternalClock::Weekday::Saturday, 15, 20, 50);
-//FlagRegisterHandler flagRegister;
 
 const unsigned int TIME_SYNC_PERIOD = 10000;   // interval (milliseconds) for time sync with NTP server
 unsigned long previousMillis = 0;
@@ -40,15 +40,27 @@ void setup()
 
 void loop()
 {
-    static FlagRegisterHandler flagRegister;   
+    static FlagRegisterHandler flagRegister;  
+    //static Actuator actuator();   // parameter set to 'true' = password protected wifi, 'false' = non-password protected
+
+    
     
     // sync internal clock with NTP server according to a preset time interval set by 'time sync period'
     unsigned long currentMillis = millis();
     if (currentMillis - previousMillis >= TIME_SYNC_PERIOD)
     {
         previousMillis = currentMillis;
-        internalClock.SyncClockworkNTP(GetNTPTime());
-        Serial.println(internalClock.GetTimeInt());
+        if (WiFi.status == WL_CONNECTED)    // check if connected to wifi
+        {
+            flagRegister.SetFlag(FlagRegisterHandler::States::WIFI_CONNECTED);  // set flag in register to indicate it is connected to wifi
+            internalClock.SyncClockworkNTP(GetNTPTime());
+            Serial.println(internalClock.GetTimeInt());
+        }
+        else
+        {
+            flagRegister.ClearFlag(FlagRegisterHandler::States::WIFI_CONNECTED);  // clear flag in register to indicate it is not connected to wifi
+            ConnectWifi();    // connect to wifi
+        }
     }
 }
 
@@ -57,6 +69,7 @@ unsigned long GetNTPTime()
     sendNTPpacket(timeServer); // send an NTP packet to a time server
      // wait to see if a reply is available
     delay(1000);
+    unsigned long time;
     if (Udp.parsePacket())
     {
         Serial.println("packet received");
@@ -83,12 +96,13 @@ unsigned long GetNTPTime()
         // print Unix time:
         Serial.println(epoch);
 
-        return epoch;
+        time = epoch;
     }
     else
     {
-        return 0;
+        time = 0;
     }
+    return time;
 }
 
 void printWifiData()
@@ -202,15 +216,8 @@ ISR(RTC_CNT_vect)
     RTC.INTFLAGS = 0x01;    // clear overflow flag by writing '1'
 }
 
-void InitializeArduino()
+void ConnectWifi()
 {
-    // I/O-pins
-
-
-    // serial monitor setup
-    Serial.begin(9600);
-
-    // connect to wifi
     while (!Serial)     // open serial communications and wait for port to open
     {
         // wait for serial port to connect
@@ -230,6 +237,18 @@ void InitializeArduino()
     printWifiStatus();
     Serial.println("\nStarting connection to server...");
     Udp.begin(localPort);
+}
+
+void InitializeArduino()
+{
+    // I/O-pins
+    
+
+    // serial monitor setup
+    Serial.begin(9600);
+
+    // connect to wifi
+    ConnectWifi();
 
     // RTC timer interrupt setup
     cli();      // disable any external interrupts
@@ -244,3 +263,5 @@ void InitializeArduino()
     RTC.CTRLA = 0x01;   // activate RTC interrup. no prescaler set
     sei();      // enable any external interrupts again
 }
+
+

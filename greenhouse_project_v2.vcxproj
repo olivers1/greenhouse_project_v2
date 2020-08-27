@@ -115,12 +115,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Actuator.h" />
     <ClInclude Include="arduino_secrets.h" />
     <ClInclude Include="FlagRegisterHandler.h" />
     <ClInclude Include="internalClock.h" />
     <ClInclude Include="__vm\.greenhouse_project_v2.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Actuator.cpp" />
     <ClCompile Include="FlagRegisterHandler.cpp" />
     <ClCompile Include="internalClock.cpp" />
   </ItemGroup>

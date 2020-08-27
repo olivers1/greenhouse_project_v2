@@ -30,12 +30,18 @@
     <ClInclude Include="FlagRegisterHandler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Actuator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="internalClock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="FlagRegisterHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Actuator.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

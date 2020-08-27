@@ -23,4 +23,5 @@ public:
 	FlagRegisterHandler();
 	void SetFlag(States);
 	void ClearFlag(States);
+	bool CheckFlag(States);
 };
