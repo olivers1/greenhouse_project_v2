@@ -1,8 +1,6 @@
 #include "InternalClock.h"
 
-InternalClock::InternalClock() { }	// empty constructor
-
-InternalClock::InternalClock(Weekday weekday, byte hour, byte minute, byte second)	// constructor taking parameters
+InternalClock::InternalClock(Weekday weekday, byte hour, byte minute, byte second)	// constructor
 	: m_weekday(weekday), m_hour(hour), m_minute(minute), m_second(second)
 {
 	if ((weekday < Weekday::Monday && weekday > Weekday::Sunday) || (hour < 0 || hour > 23) || (minute < 0 || minute > 59) || (second < 0 && second > 59))
@@ -66,8 +64,9 @@ void InternalClock::SetWeekdayTimeZone(Weekday weekday, TimeZone timeZone)
 	m_timeZone = timeZone;
 }
 
-void InternalClock::SyncClockworkNTP(unsigned long epoch)
+bool InternalClock::SyncClockworkNTP(unsigned long epoch)
 {
+	bool clockworkSyncAccomplished = false;
 	// check if NTP time sync was successfull. if not, do not sync clock
 	if (epoch != 0)
 	{
@@ -75,7 +74,9 @@ void InternalClock::SyncClockworkNTP(unsigned long epoch)
 		m_hour = (epoch % 86400L / 3600) + (unsigned long)m_timeZone;
 		m_minute = epoch % 3600 / 60;
 		m_second = epoch % 60;
+		clockworkSyncAccomplished = true;
 	}
+	return clockworkSyncAccomplished;
 }
 
 unsigned long InternalClock::GetTimeInt()

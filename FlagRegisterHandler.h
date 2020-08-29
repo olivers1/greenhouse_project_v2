@@ -24,4 +24,5 @@ public:
 	void SetFlag(States);
 	void ClearFlag(States);
 	bool CheckFlag(States);
+	byte GetFlagRegister();
 };

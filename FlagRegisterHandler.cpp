@@ -29,3 +29,8 @@ bool FlagRegisterHandler::CheckFlag(States flag)
 	}
 	return status;
 }
+
+byte FlagRegisterHandler::GetFlagRegister()
+{
+	return m_flagRegister;
+}

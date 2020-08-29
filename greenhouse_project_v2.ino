@@ -15,6 +15,7 @@
 
 
 int status = WL_IDLE_STATUS;
+byte wifiConnectAttemptCounter = 0;     // keeps track up number of attempts to connect to wifi
 char ssid[] = SECRET_SSID;      // your network SSID (name)
 char pass[] = SECRET_PASS;      // your network password
 unsigned int localPort = 2390;  // local port to listen for UDP packets
@@ -27,6 +28,7 @@ byte packetBuffer[NTP_PACKET_SIZE]; //buffer to hold incoming and outgoing packe
 WiFiUDP Udp;
 
 // instatiate objects
+//FlagRegisterHandler flagRegister;
 InternalClock internalClock(InternalClock::Weekday::Saturday, 15, 20, 50);
 
 const unsigned int TIME_SYNC_PERIOD = 10000;   // interval (milliseconds) for time sync with NTP server
@@ -50,11 +52,20 @@ void loop()
     if (currentMillis - previousMillis >= TIME_SYNC_PERIOD)
     {
         previousMillis = currentMillis;
-        if (WiFi.status == WL_CONNECTED)    // check if connected to wifi
+        if (WiFi.status() == WL_CONNECTED)    // check if connected to wifi
         {
             flagRegister.SetFlag(FlagRegisterHandler::States::WIFI_CONNECTED);  // set flag in register to indicate it is connected to wifi
-            internalClock.SyncClockworkNTP(GetNTPTime());
+            if (internalClock.SyncClockworkNTP(GetNTPTime()))   // ruturn parameter indicates if clock sync with ntp-server was successful
+            {
+                flagRegister.SetFlag(FlagRegisterHandler::States::RTC_SYNCED);	// set 'rtc_synced' flag to inidicate internal clock has been synced with ntp-server
+            }
+            else
+            {
+                flagRegister.ClearFlag(FlagRegisterHandler::States::RTC_SYNCED);	// clear 'rtc_synced' flag to inidicate internal clock failed to sync with ntp-server
+            }
             Serial.println(internalClock.GetTimeInt());
+            Serial.print("flagRegister: ");
+            Serial.println(flagRegister.GetFlagRegister(), BIN);
         }
         else
         {

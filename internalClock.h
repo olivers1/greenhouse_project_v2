@@ -1,6 +1,7 @@
 #pragma once
 
 #include <Arduino.h>
+#include "FlagRegisterHandler.h"
 
 class InternalClock
 {
@@ -20,13 +21,12 @@ private:
 	unsigned long m_second;
 	Weekday m_weekday;
 	TimeZone m_timeZone;
+	FlagRegisterHandler* m_flagRegister;
 public:
-	InternalClock();
 	InternalClock(Weekday weekday, byte hour, byte minute, byte second);
 	void SetWeekdayTimeZone(Weekday, TimeZone);
 	void InternalClockwork();
-	void SyncClockworkNTP(unsigned long);
-
+	bool SyncClockworkNTP(unsigned long);
 	Weekday GetDay();
 	byte GetHour();
 	byte GetMinute();
