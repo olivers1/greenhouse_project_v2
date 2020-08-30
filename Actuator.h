@@ -1,13 +1,13 @@
 #pragma once
 
 #include <Arduino.h>
-#include <WiFiNINA.h>
+#include "FlagRegisterHandler.h"
 
 class Actuator
 {
 private:
 	
 public:
-	Actuator();
+	Actuator(FlagRegisterHandler* flagRegisterObj);
 };
 

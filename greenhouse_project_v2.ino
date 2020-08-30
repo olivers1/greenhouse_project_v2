@@ -43,7 +43,7 @@ void setup()
 void loop()
 {
     static FlagRegisterHandler flagRegister;  
-    //static Actuator actuator();   // parameter set to 'true' = password protected wifi, 'false' = non-password protected
+    static Actuator actuator(&flagRegister);   // parameter set to 'true' = password protected wifi, 'false' = non-password protected
 
     
     
