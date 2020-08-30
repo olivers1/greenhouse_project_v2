@@ -51,11 +51,13 @@ void loop()
     unsigned long currentMillis = millis();
     if (currentMillis - previousMillis >= TIME_SYNC_PERIOD)
     {
+        Serial.print("flagRegister1: ");
+        Serial.println(flagRegister.GetFlagRegister(), BIN);
         previousMillis = currentMillis;
         if (WiFi.status() == WL_CONNECTED)    // check if connected to wifi
         {
             flagRegister.SetFlag(FlagRegisterHandler::States::WIFI_CONNECTED);  // set flag in register to indicate it is connected to wifi
-            if (internalClock.SyncClockworkNTP(GetNTPTime()))   // ruturn parameter indicates if clock sync with ntp-server was successful
+            if (internalClock.SyncClockworkNTP(GetNTPTime()))  // sync clockwork was synced with ntp-server and return '1' if successful
             {
                 flagRegister.SetFlag(FlagRegisterHandler::States::RTC_SYNCED);	// set 'rtc_synced' flag to inidicate internal clock has been synced with ntp-server
             }
@@ -64,7 +66,7 @@ void loop()
                 flagRegister.ClearFlag(FlagRegisterHandler::States::RTC_SYNCED);	// clear 'rtc_synced' flag to inidicate internal clock failed to sync with ntp-server
             }
             Serial.println(internalClock.GetTimeInt());
-            Serial.print("flagRegister: ");
+            Serial.print("flagRegister2: ");
             Serial.println(flagRegister.GetFlagRegister(), BIN);
         }
         else
@@ -106,6 +108,7 @@ unsigned long GetNTPTime()
         unsigned long epoch = secsSince1900 - seventyYears;
         // print Unix time:
         Serial.println(epoch);
+
 
         time = epoch;
     }
